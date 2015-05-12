@@ -11,6 +11,7 @@
     "angular": ">=1.2.*",
     "angular-resource": ">=1.2.*"
   },
+  "devDependencies": {},
   "keywords": [
     "angular",
     "loom",
