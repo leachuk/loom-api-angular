@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('loom.api.1.0.0')
+angular.module('loom.api.1.0.0',[])
   .factory('loomApi', ['$resource', function ($resource) {
     
     var service = {};
