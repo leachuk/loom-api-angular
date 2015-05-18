@@ -64,6 +64,21 @@ angular.module('loom.api',[])
 
     //User Service
     service.User = {};
+    service.User.signInUser = function(username, password){
+      var r=$resource('/api/users/signin', {},
+                      {
+                          signInUser: { method: 'Post', params: {username: username, password: password }}
+                      });
+
+      return r.signInUser({username: username, password: password }).$promise.then(
+        function(success) {
+          return data;
+        },
+        function(error) {
+          return error;
+        });
+    };
+
     service.User.getUser = function(userid) {
       var r=$resource('/api/users/getuser/:username', {},
                       {
