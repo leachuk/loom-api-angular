@@ -65,16 +65,16 @@ angular.module('loom.api',[])
     //User Service
     service.User = {};
     service.User.signInUser = function(username, password){
-      var r=$resource('/api/users/signin', {},
+      var r=$resource('http://localhost:9000/api/users/signin', {},
                       {
                           signInUser: { method: 'Post', params: {username: username, password: password }}
                       });
 
       return r.signInUser({username: username, password: password }).$promise.then(
         function(success) {
-          return data;
+          return success;
         },
-        function(error) {
+        function(error){
           return error;
         });
     };
