@@ -5,10 +5,26 @@ angular.module('loom.api',[])
     
     var service = {};
 
+    //config
+    var loomApiServer = null;
+    service.Config = {};
+    service.Config.init = function(configObj) {
+      service.Config.protocol = configObj.protocol ? configObj.protocol : "http";
+      service.Config.hostname = configObj.hostname ? configObj.hostname : "localhost";
+      service.Config.port = configObj.port ? configObj.port : "9000";
+
+      loomApiServer = service.Config.protocol 
+                    + "://" 
+                    + service.Config.hostname 
+                    + ":" 
+                    + service.Config.port;
+    }
+    service.Config.init({});
+
     //Article Service
     service.Article = {};
     service.Article.getArticle = function(id) {
-      var r=$resource('/api/articles/getarticle/:id', {},
+      var r=$resource(loomApiServer + '/api/articles/getarticle/:id', {},
                       {
                           getArticle: { method: 'GET', params: { id: id }}
                       });
@@ -20,7 +36,7 @@ angular.module('loom.api',[])
 
     service.Article.saveArticle = function(model) {
       console.log(model);
-      var r=$resource('/api/articles/saveArticle', {},
+      var r=$resource(loomApiServer + '/api/articles/saveArticle', {},
                       {
                           saveArticle: { method: 'POST', params: {}}
                       });
@@ -31,7 +47,7 @@ angular.module('loom.api',[])
     };
 
     service.Article.listAllMyArticles = function() {
-      var r=$resource('/api/articles/listMyArticles', {}, 
+      var r=$resource(loomApiServer + '/api/articles/listMyArticles', {}, 
                       {
                           listAllMyArticles: {method: 'GET', isArray: true, params: {getAllData: false}}
                       });
@@ -42,7 +58,7 @@ angular.module('loom.api',[])
 
     service.Article.delete = function(id, rev) {
       console.log("delete, id:" + id + ", rev:" + rev);
-      var r=$resource('/api/articles/deleteArticle', {}, 
+      var r=$resource(loomApiServer + '/api/articles/deleteArticle', {}, 
                       {
                           deleteArticle: {method: 'POST', params: { id: id, rev: rev}}
                       });
@@ -52,7 +68,7 @@ angular.module('loom.api',[])
     };
 
     service.Article.updateArticle = function(docData) {
-      var r=$resource('/api/articles/updateArticle', {},
+      var r=$resource(loomApiServer + '/api/articles/updateArticle', {},
                       {
                           updateArticle: { method: 'Post', params: { updateData: docData }}
                       });
@@ -65,7 +81,7 @@ angular.module('loom.api',[])
     //User Service
     service.User = {};
     service.User.signInUser = function(username, password){
-      var r=$resource('http://localhost:9000/api/users/signin', {},
+      var r=$resource(loomApiServer + '/api/users/signin', {},
                       {
                           signInUser: { method: 'Post', params: {username: username, password: password }}
                       });
@@ -80,7 +96,7 @@ angular.module('loom.api',[])
     };
 
     service.User.getUser = function(userid) {
-      var r=$resource('/api/users/getuser/:username', {},
+      var r=$resource(loomApiServer + '/api/users/getuser/:username', {},
                       {
                           getUser: { method: 'GET', params: {username: '' }}
                       });
