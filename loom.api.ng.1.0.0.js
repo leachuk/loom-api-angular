@@ -3,21 +3,15 @@
 angular.module('loom.api',[])
   .factory('loomApi', ['$resource', function ($resource) {
     
+    //Config    
+    var loomApiServer = null;
     var service = {
       protocol : "http",
       hostname : "localhost",
       port : "9000"
     };
 
-    //TODO create constructor that initialises default config, removing need for config function.
-
-    //config
-    var loomApiServer = null;
-    service.Config = {};
     service.init = function(configObj) {
-      // service.Config.protocol = configObj.protocol || "http";
-      // service.Config.hostname = configObj.hostname || "localhost";
-      // service.Config.port = configObj.port || "9000";
       if(Object.keys(configObj).length !== 0){
         for(var prop in arguments[0]){
           if(service.hasOwnProperty(prop)){
@@ -94,7 +88,6 @@ angular.module('loom.api',[])
     //User Service
     service.User = {};
     service.User.signInUser = function(username, password){
-      console.log(loomApiServer);
       var r=$resource(loomApiServer + '/api/users/signin', {},
                       {
                           signInUser: { method: 'Post', params: {username: username, password: password }}
