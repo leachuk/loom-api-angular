@@ -2,7 +2,11 @@
 
 angular.module('loom.api',[])
   .factory('loomApi', ['$resource', function ($resource) {
-    
+
+    var initAuth = function(authObj) {
+      return "Bearer " + authObj;
+    };
+
     //Config    
     var loomApiServer = null;
     var service = {
@@ -41,11 +45,11 @@ angular.module('loom.api',[])
       });
     };
 
-    service.Article.saveArticle = function(model) {
+    service.Article.saveArticle = function(model, auth) {
       console.log(model);
       var r=$resource(loomApiServer + '/api/articles/saveArticle', {},
                       {
-                          saveArticle: { method: 'POST', params: {}, headers: {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IndyaXRlb25tdnBzdGVwMS0xQHRlc3QuY29tIiwiY29va2llIjoiQXV0aFNlc3Npb249ZDNKcGRHVnZibTEyY0hOMFpYQXhMVEZBZEdWemRDNWpiMjA2TlRZMlFqbEdNVVE2alJmbjR1anduUEZvOTZ6VXhmejJTdEhIYjF3OyBWZXJzaW9uPTE7IEV4cGlyZXM9U2F0LCAxMi1EZWMtMjAxNSAyMTowMTowMCBHTVQ7IE1heC1BZ2U9OTk5OTk7IFBhdGg9LzsgSHR0cE9ubHkiLCJvayI6dHJ1ZSwicm9sZXMiOlsiYXJ0aWNsZS1lZGl0b3IiXSwiaXAiOiI6OmZmZmY6MTI3LjAuMC4xIiwiaWF0IjoxNDQ5ODkzNjYxLCJleHAiOjE0NDk5MTE2NjF9.5_yhYPCKeivdP0Np63Mg_NaScZp_DwGGfCZl8IuPlg0'}}
+                          saveArticle: { method: 'POST', params: {}, headers: {'Authorization': initAuth(auth)}}
                       });
 
       return r.saveArticle(model).$promise.then(function(data) {
