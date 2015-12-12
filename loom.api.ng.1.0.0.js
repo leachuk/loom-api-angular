@@ -45,7 +45,7 @@ angular.module('loom.api',[])
       console.log(model);
       var r=$resource(loomApiServer + '/api/articles/saveArticle', {},
                       {
-                          saveArticle: { method: 'POST', params: {}}
+                          saveArticle: { method: 'POST', params: {}, headers: {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IndyaXRlb25tdnBzdGVwMS0xQHRlc3QuY29tIiwiY29va2llIjoiQXV0aFNlc3Npb249ZDNKcGRHVnZibTEyY0hOMFpYQXhMVEZBZEdWemRDNWpiMjA2TlRZMlFqbEdNVVE2alJmbjR1anduUEZvOTZ6VXhmejJTdEhIYjF3OyBWZXJzaW9uPTE7IEV4cGlyZXM9U2F0LCAxMi1EZWMtMjAxNSAyMTowMTowMCBHTVQ7IE1heC1BZ2U9OTk5OTk7IFBhdGg9LzsgSHR0cE9ubHkiLCJvayI6dHJ1ZSwicm9sZXMiOlsiYXJ0aWNsZS1lZGl0b3IiXSwiaXAiOiI6OmZmZmY6MTI3LjAuMC4xIiwiaWF0IjoxNDQ5ODkzNjYxLCJleHAiOjE0NDk5MTE2NjF9.5_yhYPCKeivdP0Np63Mg_NaScZp_DwGGfCZl8IuPlg0'}}
                       });
 
       return r.saveArticle(model).$promise.then(function(data) {
@@ -87,6 +87,19 @@ angular.module('loom.api',[])
 
     //User Service
     service.User = {};
+
+    service.User.createNewUser = function(useremail, username, password){
+      var r=$resource(loomApiServer + '/api/users/signup', {},
+                      {
+                          createNewUser: { method: 'Post', params: {email: useremail, username: username, password: password }}
+                      });
+
+      return r.createNewUser({ email: useremail, username: username, password: password }).$promise.then(
+        function(data) {
+          return data;
+        });
+    };
+
     service.User.signInUser = function(username, password){
       var r=$resource(loomApiServer + '/api/users/signin', {},
                       {
