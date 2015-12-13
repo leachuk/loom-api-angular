@@ -8,8 +8,8 @@
   "description": "Angular factory implementation of the Loom server API",
   "main": "loom.api.ng.1.0.0.js",
   "dependencies": {
-    "angular": ">=1.2.*",
-    "angular-resource": ">=1.2.*"
+    "angular": ">=1.5.*",
+    "angular-resource": ">=1.5.*"
   },
   "devDependencies": {},
   "keywords": [
