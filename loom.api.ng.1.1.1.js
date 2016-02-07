@@ -119,14 +119,14 @@ angular.module('loom.api',[])
         });
     };
 
-    service.User.getUser = function(userid) {
+    service.User.getUser = function(userid, authToken) {
       var r=$resource(loomApiServer + '/api/users/getuser/:username', {},
                       {
-                          getUser: { method: 'GET', params: {username: '' }}
+                          getUser: { method: 'GET', params: {username: '' }, headers: {'Authorization': initAuth(authToken)}}
                       });
 
       return r.getUser({username: userid}).$promise.then(function(data) {
-        return new User(data);
+        return data;
       });
     };
 
