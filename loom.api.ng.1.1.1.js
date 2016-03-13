@@ -121,9 +121,20 @@ angular.module('loom.api',[])
 
     service.User.getUser = function(userid, authToken) {
       var r=$resource(loomApiServer + '/api/users/getuser/:username', {},
-                      {
-                          getUser: { method: 'GET', params: {username: '' }, headers: {'Authorization': initAuth(authToken)}}
-                      });
+        {
+          getUser: { method: 'GET', params: {username: '' }, headers: {'Authorization': initAuth(authToken)}}
+        });
+
+      return r.getUser({username: userid}).$promise.then(function(data) {
+        return data;
+      });
+    };
+
+    service.User.getSpecifiedUser = function(userid, authToken) {
+      var r=$resource(loomApiServer + '/api/users/getspecifieduser/:username', {},
+        {
+          getUser: { method: 'GET', params: {username: '' }, headers: {'Authorization': initAuth(authToken)}}
+        });
 
       return r.getUser({username: userid}).$promise.then(function(data) {
         return data;
