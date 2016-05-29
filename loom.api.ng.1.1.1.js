@@ -92,10 +92,10 @@ angular.module('loom.api',[])
     //User Service
     service.User = {};
 
-    service.User.createNewUser = function(modelData){
+    service.User.createNewUser = function(modelData, modelId){
       var r=$resource(loomApiServer + '/api/users/signup', {},
                       {
-                          createNewUser: { method: 'Post', params: {}, headers: {} }
+                          createNewUser: { method: 'Post', params: {'modelId': modelId}, headers: {} }
                       });
 
       return r.createNewUser(modelData).$promise.then(
