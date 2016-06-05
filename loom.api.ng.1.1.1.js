@@ -89,6 +89,17 @@ angular.module('loom.api',[])
       });
     };
 
+    service.Article.compare = function(sourceid, compareid, authToken) {
+      var r=$resource(loomApiServer + '/api/articles/compare/:sourceid/:compareid', {},
+          {
+              compare: { method: 'GET', isArray: true, params: { sourceid: '', compareid: '' }, headers: {'Authorization': initAuth(authToken)}}
+          });
+
+      return r.compare({ sourceid: sourceid, compareid: compareid }).$promise.then(function(data) {
+          return data;
+      });
+    };
+
     //User Service
     service.User = {};
 
