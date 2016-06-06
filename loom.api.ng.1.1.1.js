@@ -57,11 +57,12 @@ angular.module('loom.api',[])
       });
     };
 
-    service.Article.listAllMyArticles = function() {
+    service.Article.listAllMyArticles = function(modelId, auth) {
       var r=$resource(loomApiServer + '/api/articles/listMyArticles', {}, 
                       {
-                          listAllMyArticles: {method: 'GET', isArray: true, params: {getAllData: false}}
+                          listAllMyArticles: { method: 'GET', isArray: true, params: { modelId: modelId, getAllData: false }, headers: {'Authorization': initAuth(auth)}}
                       });
+
       return r.listAllMyArticles().$promise.then(function(data){
         return data;
       });
@@ -73,6 +74,7 @@ angular.module('loom.api',[])
                       {
                           deleteArticle: {method: 'POST', params: { id: id, rev: rev}}
                       });
+
       return r.deleteArticle().$promise.then(function(data){
         return data;
       });
