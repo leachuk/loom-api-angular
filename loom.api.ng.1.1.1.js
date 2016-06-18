@@ -68,6 +68,19 @@ angular.module('loom.api',[])
       });
     };
 
+
+    //RecruitUnit specific endpoint
+    service.Article.listMyTestContent = function(modelId, auth) {
+      var r=$resource(loomApiServer + '/api/articles/listMyTestContent', {},
+          {
+              listMyTestContent: { method: 'GET', isArray: true, params: { modelId: modelId, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
+          });
+
+      return r.listMyTestContent().$promise.then(function(data){
+          return data;
+      });
+    };
+
     service.Article.delete = function(id, rev) {
       console.log("delete, id:" + id + ", rev:" + rev);
       var r=$resource(loomApiServer + '/api/articles/deleteArticle', {}, 
