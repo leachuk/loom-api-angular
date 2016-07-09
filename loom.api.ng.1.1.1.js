@@ -34,13 +34,13 @@ angular.module('loom.api',[])
 
     //Article Service
     service.Article = {};
-    service.Article.getArticle = function(id) {
+    service.Article.getArticle = function(id, modelId, model, auth) {
       var r=$resource(loomApiServer + '/api/articles/getarticle/:id', {},
                       {
-                          getArticle: { method: 'GET', params: { id: id }}
+                          getArticle: { method: 'GET', params: { id: id, modelId: modelId, model: model }, headers: {'Authorization': initAuth(auth)}}
                       });
 
-      return r.getArticle({id: id}).$promise.then(function(data) {
+      return r.getArticle({ id: id, modelId: modelId, model: model }).$promise.then(function(data) {
         return data;
       });
     };
