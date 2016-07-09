@@ -93,13 +93,13 @@ angular.module('loom.api',[])
       });
     };
 
-    service.Article.updateArticle = function(docData) {
-      var r=$resource(loomApiServer + '/api/articles/updateArticle', {},
+    service.Article.updateArticle = function(id, docData, authToken, modelId) {
+      var r=$resource(loomApiServer + '/api/articles/updateArticle/:id', {},
                       {
-                          updateArticle: { method: 'Post', params: { updateData: docData }}
+                          updateArticle: { method: 'Post', params: { id: id, updateData: docData, modelId: modelId }, headers: {'Authorization': initAuth(authToken)}}
                       });
 
-      return r.updateArticle({updateData: docData}).$promise.then(function(data) {
+      return r.updateArticle({ id: id, updateData: docData}).$promise.then(function(data) {
         return data;
       });
     };
