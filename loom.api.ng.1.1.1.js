@@ -45,11 +45,10 @@ angular.module('loom.api',[])
       });
     };
 
-    service.Article.saveArticle = function(modelData, modelId, auth) {
-      console.log(modelData);
+    service.Article.saveArticle = function(modelData, modelId, modelType, auth) {
       var r=$resource(loomApiServer + '/api/articles/saveArticle', {},
                       {
-                          saveArticle: { method: 'POST', params: {'modelId': modelId}, headers: {'Authorization': initAuth(auth)}}
+                          saveArticle: { method: 'POST', params: {modelId: modelId, modelType: modelType}, headers: {'Authorization': initAuth(auth)}}
                       });
 
       return r.saveArticle(modelData).$promise.then(function(data) {
