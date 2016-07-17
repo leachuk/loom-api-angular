@@ -114,6 +114,17 @@ angular.module('loom.api',[])
       });
     };
 
+      service.Article.search = function(modelId, modelType, searchJson, auth) {
+          var r=$resource(loomApiServer + '/api/articles/search', {},
+              {
+                  search: { method: 'GET', isArray: true, params: { modelId: modelId, modelType: modelType, searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
+              });
+
+          return r.search().$promise.then(function(data){
+              return data;
+          });
+      };
+
     //User Service
     service.User = {};
 
