@@ -69,10 +69,10 @@ angular.module('loom.api',[])
 
 
     //RecruitUnit specific endpoint
-    service.Article.listMyTestContent = function(modelId, auth) {
+    service.Article.listMyTestContent = function(modelId, comparisonRulesDocId, auth) {
       var r=$resource(loomApiServer + '/api/articles/listMyTestContent', {},
           {
-              listMyTestContent: { method: 'GET', isArray: true, params: { modelId: modelId, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
+              listMyTestContent: { method: 'GET', isArray: true, params: { modelId: modelId, comparisonRulesDocId: comparisonRulesDocId, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
           });
 
       return r.listMyTestContent().$promise.then(function(data){
