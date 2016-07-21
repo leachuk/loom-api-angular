@@ -92,13 +92,13 @@ angular.module('loom.api',[])
       });
     };
 
-    service.Article.updateArticle = function(id, docData, authToken, modelId) {
+    service.Article.updateArticle = function(docId, modelId, modelType, docData, authToken) {
       var r=$resource(loomApiServer + '/api/articles/updateArticle/:id', {},
                       {
-                          updateArticle: { method: 'Post', params: { id: id, updateData: docData, modelId: modelId }, headers: {'Authorization': initAuth(authToken)}}
+                          updateArticle: { method: 'Post', params: { id: docId, updateData: docData, modelId: modelId, modelType: modelType }, headers: {'Authorization': initAuth(authToken)}}
                       });
 
-      return r.updateArticle({ id: id, updateData: docData}).$promise.then(function(data) {
+      return r.updateArticle({ id: docId, updateData: docData}).$promise.then(function(data) { //todo: is the json required here? Remove from all if not
         return data;
       });
     };
