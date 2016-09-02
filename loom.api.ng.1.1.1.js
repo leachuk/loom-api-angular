@@ -48,7 +48,7 @@ angular.module('loom.api',[])
     service.Article.createArticle = function(modelData, modelId, modelType, auth) {
       var r=$resource(loomApiServer + '/api/articles/createArticle', {},
                       {
-                          createArticle: { method: 'POST', params: {modelId: modelId, modelType: modelType}, headers: {'Authorization': initAuth(auth)}}
+                          createArticle: { method: 'PUT', params: {modelId: modelId, modelType: modelType}, headers: {'Authorization': initAuth(auth)}}
                       });
 
       return r.createArticle(modelData).$promise.then(function(data) {
