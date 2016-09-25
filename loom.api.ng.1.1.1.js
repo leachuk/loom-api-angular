@@ -1,5 +1,7 @@
 'use strict';
 
+//todo: will require an api implementation per client to handle unique endpoints to the application
+
 angular.module('loom.api',[])
   .factory('loomApi', ['$resource', function ($resource) {
 
@@ -126,16 +128,28 @@ angular.module('loom.api',[])
       });
     };
 
-      service.Article.search = function(modelId, modelType, searchJson, auth) {
-          var r=$resource(loomApiServer + '/api/articles/search', {},
-              {
-                  search: { method: 'GET', isArray: true, params: { modelId: modelId, modelType: modelType, searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
-              });
-
-          return r.search().$promise.then(function(data){
-              return data;
+    service.Article.search = function(modelId, modelType, searchJson, auth) {
+      var r=$resource(loomApiServer + '/api/articles/search', {},
+          {
+              search: { method: 'GET', isArray: true, params: { modelId: modelId, modelType: modelType, searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
           });
-      };
+
+      return r.search().$promise.then(function(data){
+          return data;
+      });
+    };
+
+    //recruitunit specific
+    service.Article.createJobSubmission = function(modelData, auth) {
+      var r=$resource(loomApiServer + '/api/recruitunit/articles/createjobsubmission', {},
+          {
+              createJobSubmission: { method: 'PUT', params: {}, headers: {'Authorization': initAuth(auth)}}
+          });
+
+      return r.createJobSubmission(modelData).$promise.then(function(data) {
+          return data;
+      });
+    };
 
     //User Service
     service.User = {};
