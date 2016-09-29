@@ -203,6 +203,18 @@ angular.module('loom.api',[])
       });
     };
 
+    //recruitunit specific
+    service.User.getUserFromGuid = function(userguid, authToken) {
+      var r=$resource(loomApiServer + '/api/recruitunit/users/getuserdetails/:userguid', {},
+          {
+              getUserFromGuid: { method: 'GET', params: {userguid: '' }, headers: {'Authorization': initAuth(authToken)}}
+          });
+
+      return r.getUserFromGuid({userguid: userguid}).$promise.then(function(data) {
+          return data;
+      });
+    };
+
     return service;
 
   }]);
