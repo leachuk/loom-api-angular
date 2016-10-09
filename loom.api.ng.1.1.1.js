@@ -219,10 +219,10 @@ angular.module('loom.api',[])
     service.User.updateUser = function(useremail, updateJson, authToken) {
       var r=$resource(loomApiServer + '/api/recruitunit/users/updateuser/:useremail', {},
           {
-              updateUser: { method: 'POST', params: { useremail: useremail, updateJson: updateJson }, headers: {'Authorization': initAuth(authToken)}}
+              updateUser: { method: 'POST', params: { useremail: useremail}, headers: {'Authorization': initAuth(authToken)}}
           });
 
-      return r.updateUser({ useremail: useremail, updateJson: updateJson }).$promise.then(function(data) {
+      return r.updateUser({ updateJson: updateJson }).$promise.then(function(data) {
           return data;
       });
     };
