@@ -82,17 +82,17 @@ angular.module('loom.api',[])
       });
     };
 
-      //RecruitUnit specific endpoint
-      service.Article.getUserTestResults = function(controllerId, searchJson, auth) {
-          var r=$resource(loomApiServer + '/api/articles/getUserTestResults', {},
-              {
-                  getUserTestResults: { method: 'GET', isArray: true, params: { controllerId: controllerId, searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
-              });
-
-          return r.getUserTestResults().$promise.then(function(data){
-              return data;
+    //RecruitUnit specific endpoint
+    service.Article.getUserTestResults = function(controllerId, searchJson, auth) {
+      var r=$resource(loomApiServer + '/api/articles/getUserTestResults', {},
+          {
+              getUserTestResults: { method: 'GET', isArray: true, params: { controllerId: controllerId, searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
           });
-      };
+
+      return r.getUserTestResults().$promise.then(function(data){
+          return data;
+      });
+    };
 
     service.Article.delete = function(id, rev) {
       console.log("delete, id:" + id + ", rev:" + rev);
@@ -147,6 +147,18 @@ angular.module('loom.api',[])
           });
 
       return r.createJobSubmission(modelData).$promise.then(function(data) {
+          return data;
+      });
+    };
+
+    //recruitunit specific
+    service.Article.toggleDevEmailDisplay = function(docId, authToken) {
+      var r=$resource(loomApiServer + '/api/recruitunit/articles/toggledevemaildisplay', {},
+          {
+              updateArticle: { method: 'Post', params: { id: docId }, headers: {'Authorization': initAuth(authToken)}}
+          });
+
+      return r.updateArticle({ id: docId }).$promise.then(function(data) {
           return data;
       });
     };
@@ -223,6 +235,18 @@ angular.module('loom.api',[])
           });
 
       return r.updateUser({ updateJson: updateJson }).$promise.then(function(data) {
+          return data;
+      });
+    };
+
+    //recruitunit specific
+    service.User.getDevEmailFromDocId = function(docid, authToken) {
+      var r=$resource(loomApiServer + '/api/recruitunit/users/getdevemailfromdocid/:docid', {},
+          {
+              getDevEmailFromDocId: { method: 'GET', params: {docid: docid }, headers: {'Authorization': initAuth(authToken)}}
+          });
+
+      return r.getDevEmailFromDocId({docid: docid}).$promise.then(function(data) {
           return data;
       });
     };
