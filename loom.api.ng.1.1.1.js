@@ -83,10 +83,10 @@ angular.module('loom.api',[])
     };
 
     //RecruitUnit specific endpoint
-    service.Article.getUserTestResults = function(controllerId, searchJson, auth) {
-      var r=$resource(loomApiServer + '/api/articles/getUserTestResults', {},
+    service.Article.getUserTestResults = function(searchJson, auth) {
+      var r=$resource(loomApiServer + '/api/recruitunit/articles/getUserTestResults', {},
           {
-              getUserTestResults: { method: 'GET', isArray: true, params: { controllerId: controllerId, searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
+              getUserTestResults: { method: 'GET', isArray: true, params: { searchJson: searchJson, getAllData: true }, headers: {'Authorization': initAuth(auth)}}
           });
 
       return r.getUserTestResults().$promise.then(function(data){
