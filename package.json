@@ -1,0 +1,19 @@
+{
+  "name": "loom-api-angular",
+  "version": "1.1.1",
+  "description": "angular resource API for loom server",
+  "main": "loom.api.ng.1.1.1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leachuk/loom-api-angular.git"
+  },
+  "author": "stewart leach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leachuk/loom-api-angular/issues"
+  },
+  "homepage": "https://github.com/leachuk/loom-api-angular#readme"
+}
