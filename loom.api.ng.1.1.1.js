@@ -26,11 +26,18 @@ angular.module('loom.api',[])
         }
       }
 
-      loomApiServer = service.protocol 
-                    + "://" 
-                    + service.hostname 
-                    + ":" 
-                    + service.port;
+      if(service.port == "80" || service.port == ""){
+        loomApiServer = service.protocol
+          + "://"
+          + service.hostname;
+      } else {
+        loomApiServer = service.protocol
+          + "://"
+          + service.hostname
+          + ":"
+          + service.port;
+      }
+
     }
     service.init({});
 
