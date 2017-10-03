@@ -179,7 +179,7 @@ angular.module('loom.api',[])
                           createNewUser: { method: 'Post', params: {'modelId': modelId }, headers: {} }
                       });
 
-      return r.createNewUser(modelData).$promise.then(
+      return r.createNewUser({}, modelData).$promise.then(
         function(data) {
           return data;
         });
