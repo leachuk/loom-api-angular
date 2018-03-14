@@ -170,6 +170,17 @@ angular.module('loom.api',[])
       });
     };
 
+		service.Article.find = function(selectorJson, authToken) {
+			var r=$resource(loomApiServer + '/api/recruitunit/articles/find', {},
+				{
+					find: { method: 'POST', headers: {'Authorization': initAuth(authToken)}}
+				});
+
+			return r.find(selectorJson).$promise.then(function(data) {
+				return data;
+			});
+		};
+
     //User Service
     service.User = {};
 
