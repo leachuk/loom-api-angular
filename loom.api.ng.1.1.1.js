@@ -112,6 +112,17 @@ angular.module('loom.api',[])
 			});
 		};
 
+		service.Article.getUserComparisonTestDocs = function(auth) {
+			var r=$resource(loomApiServer + '/api/recruitunit/articles/getusercomparisontestdocs', {},
+				{
+					getUserComparisonTestDocs: { method: 'GET', isArray: true, params: { getAllData: true }, headers: {'Authorization': initAuth(auth)}}
+				});
+
+			return r.getUserComparisonTestDocs().$promise.then(function(data){
+				return data;
+			});
+		};
+
     service.Article.delete = function(id, rev) {
       console.log("delete, id:" + id + ", rev:" + rev);
       var r=$resource(loomApiServer + '/api/articles/deleteArticle', {}, 
